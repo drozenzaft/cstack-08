@@ -89,7 +89,6 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
             add_sphere(polygons,
                        float(args[0]), float(args[1]), float(args[2]),
                        float(args[3]), step_3d)
-            #matrix_mult(polygons,cs[len(cs)-1])
             matrix_mult(cs[len(cs)-1],polygons)
             draw_polygons(polygons,screen,color)
             polygons = []
@@ -99,7 +98,6 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
             add_torus(polygons,
                       float(args[0]), float(args[1]), float(args[2]),
                       float(args[3]), float(args[4]), step_3d)
-            #matrix_mult(polygons,cs[len(cs)-1])
             matrix_mult(cs[len(cs)-1],polygons)
             draw_polygons(polygons,screen,color)
             polygons = []
@@ -109,7 +107,6 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
             add_box(polygons,
                     float(args[0]), float(args[1]), float(args[2]),
                     float(args[3]), float(args[4]), float(args[5]))
-            #matrix_mult(polygons,cs[len(cs)-1])
             matrix_mult(cs[len(cs)-1],polygons)
             draw_polygons(polygons,screen,color)
             polygons = []
@@ -119,7 +116,6 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
             add_circle(edges,
                        float(args[0]), float(args[1]), float(args[2]),
                        float(args[3]), step)
-            #matrix_mult(edges,cs[len(cs)-1])
             matrix_mult(cs[len(cs)-1],edges)
             draw_lines(edges,screen,color)
             edges = []
@@ -132,14 +128,12 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
                       float(args[4]), float(args[5]),
                       float(args[6]), float(args[7]),
                       step, line)
-            #matrix_mult(edges,cs[len(cs)-1])
             matrix_mult(cs[len(cs)-1],edges)
             draw_lines(edges,screen,color)
             edges = []
 
         elif line == 'line':
             #print 'LINE\t' + str(args)
-
             add_edge( edges,
                       float(args[0]), float(args[1]), float(args[2]),
                       float(args[3]), float(args[4]), float(args[5]) )
