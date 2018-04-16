@@ -64,10 +64,10 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
     lines = f.readlines()
 
     step = 100
-    step_3d = 20
+    step_3d = 10
 
     c = 0
-
+    clear_screen(screen)
     while c < len(lines):
         line = lines[c].strip()
         #print ':' + line + ':'
@@ -79,7 +79,7 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
 
         if line == 'push':
             cs.append(cs[len(cs)-1])
-            print cs
+            #print cs
             
         if line == 'pop':
             cs.pop()
@@ -151,24 +151,26 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
         elif line == 'scale':
             #print 'SCALE\t' + str(args)
             t = make_scale(float(args[0]), float(args[1]), float(args[2]))
-            matrix_mult(t,cs[len(cs)-1])
+            matrix_mult(cs[len(cs)-1],t)
+            cs[len(cs)-1] = t
                         
         elif line == 'move':
             #print 'MOVE\t' + str(args)
             t = make_translate(float(args[0]), float(args[1]), float(args[2]))
-            matrix_mult(t,cs[len(cs)-1])
-
+            matrix_mult(cs[len(cs)-1],t)
+            cs[len(cs)-1] = t
+            
         elif line == 'rotate':
             #print 'ROTATE\t' + str(args)
             theta = float(args[1]) * (math.pi / 180)
-
             if args[0] == 'x':
                 t = make_rotX(theta)
             elif args[0] == 'y':
                 t = make_rotY(theta)
             else:
                 t = make_rotZ(theta)
-            matrix_mult(t,cs[len(cs)-1])
+            matrix_mult(cs[len(cs)-1],t)
+            cs[len(cs)-1] = t
                         
         elif line == 'display' or line == 'save':
             if line == 'display':
